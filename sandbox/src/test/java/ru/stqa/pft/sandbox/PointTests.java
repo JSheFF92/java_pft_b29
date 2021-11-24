@@ -25,6 +25,6 @@ import static ru.stqa.pft.sandbox.Distance.distance;
         public void testPoint3() {
             Point point1 = new Point(1, 4);
             Point point2 = new Point(2, 7);
-            Assert.assertEquals(distance(point1, point2), 4.1622776601683795);
+            Assert.assertEquals(distance(point1, point2), 3.1622776601683795);
         }
     }
