@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestCaseHomeWork {
+public class TestCaseHomeWorkContact {
   private WebDriver wd;
 
 
@@ -33,9 +33,9 @@ public class TestCaseHomeWork {
 
   @Test
   public void testCaseHomeWork() throws Exception {
-    gotoGroupPage("add new");
+    gotoGroupPage();
     initGroupCreation("firstname");
-    fillGroupForm(new HomeWorkData("aaa", "bbb", "zzz", "7877", "mail@list.ru"));
+    fillGroupForm(new HomeWorkDataContact("aaa", "bbb", "zzz", "7877", "mail@list.ru"));
     submitGroupCreation();
     returnToGroupPage("Logout");
   }
@@ -48,7 +48,7 @@ public class TestCaseHomeWork {
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
   }
 
-  private void fillGroupForm(HomeWorkData homeWorkData) {
+  private void fillGroupForm(HomeWorkDataContact homeWorkData) {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
     wd.findElement(By.name("firstname")).sendKeys(homeWorkData.getName());
@@ -70,8 +70,8 @@ public class TestCaseHomeWork {
     wd.findElement(By.name(firstname)).click();
   }
 
-  private void gotoGroupPage(String s) {
-    wd.findElement(By.linkText(s)).click();
+  private void gotoGroupPage() {
+    wd.findElement(By.linkText("add new")).click();
   }
 
   @AfterMethod(alwaysRun = true)
