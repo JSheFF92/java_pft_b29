@@ -1,13 +1,13 @@
 package re.stqa.pft.addressbook;
 
-public class HomeWorkDataContact {
+public class ContactData {
     private final String name;
     private final String lastname;
     private final String address;
     private final String mobile;
     private final String email;
 
-    public HomeWorkDataContact(String name, String lastname, String address, String mobile, String email) {
+    public ContactData(String name, String lastname, String address, String mobile, String email) {
         this.name = name;
         this.lastname = lastname;
         this.address = address;
