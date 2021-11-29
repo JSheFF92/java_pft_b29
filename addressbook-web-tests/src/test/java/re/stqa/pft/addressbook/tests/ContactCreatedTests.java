@@ -7,9 +7,9 @@ public class ContactCreatedTests extends TestBase {
 
 
     @Test
-    public void testCaseHomeWork() throws Exception {
-        app.getNavigationHelper().gotoGroupPageContact();
-        app.getGroupHelper().initGroupCreation("firstname");
+    public void testContactCreated() {
+        app.getNavigationHelper().gotoContactPage();
+        app.getGroupHelper().initContactCreation();
         app.getGroupHelper().fillGroupForm(new ContactData("aaa", "bbb", "zzz", "7877", "mail@list.ru"));
         app.getGroupHelper().submitGroupCreation();
         app.getGroupHelper().returnToGroupPage();

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class GroupDelitionTests extends TestBase {
 
     @Test
-    public void testGroupDelition() throws Exception {
+    public void testGroupDelition() {
         app.getNavigationHelper().gotoGroupPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().deleteSelectedGroups();

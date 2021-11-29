@@ -1,6 +1,5 @@
 package re.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -14,13 +13,13 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
 
     private  NavigationHelper navigationHelper;
-    private GroupHelper groupHelper;
+    private GroupContactDelitionHelper groupHelper;
 
     public void init() {
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
-        groupHelper = new GroupHelper(wd);
+        groupHelper = new GroupContactDelitionHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
@@ -32,16 +31,8 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    private boolean isAlertPresent(ChromeDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
 
-    public GroupHelper getGroupHelper() {
+    public GroupContactDelitionHelper getGroupHelper() {
         return groupHelper;
     }
 
