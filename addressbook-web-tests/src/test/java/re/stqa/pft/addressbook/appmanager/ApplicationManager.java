@@ -13,13 +13,13 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
 
     private  NavigationHelper navigationHelper;
-    private GroupContactDelitionHelper groupHelper;
+    private ContactGroupDelitionHelper groupHelper;
 
     public void init() {
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
-        groupHelper = new GroupContactDelitionHelper(wd);
+        groupHelper = new ContactGroupDelitionHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
@@ -32,7 +32,7 @@ public class ApplicationManager {
     }
 
 
-    public GroupContactDelitionHelper getGroupHelper() {
+    public ContactGroupDelitionHelper getContactGroupHelper() {
         return groupHelper;
     }
 

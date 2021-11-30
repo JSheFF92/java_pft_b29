@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import re.stqa.pft.addressbook.model.ContactData;
 import re.stqa.pft.addressbook.model.GroupData;
 
-public class GroupContactDelitionHelper extends HelperBase {
+public class ContactGroupDelitionHelper extends HelperBase {
 
-    public GroupContactDelitionHelper(WebDriver wd) {
+    public ContactGroupDelitionHelper(WebDriver wd) {
         super(wd);
     }
 
@@ -50,4 +50,20 @@ public class GroupContactDelitionHelper extends HelperBase {
     }
 
 
+    public void initGroupModification() {
+        click(By.name("edit"));
+    }
+
+    public void initContactModification() {
+
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitGroupModification() {
+        click(By.name("update"));
+    }
+
+    public void submitContactModification() {
+        click(By.name("update"));
+    }
 }
