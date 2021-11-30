@@ -49,6 +49,9 @@ public class ContactGroupDelitionHelper extends HelperBase {
         type(By.name("email"), homeWorkData.getEmail());
     }
 
+    public void closeAlert(){
+        wd.switchTo().alert().accept();
+    }
 
     public void initGroupModification() {
         click(By.name("edit"));
@@ -58,6 +61,12 @@ public class ContactGroupDelitionHelper extends HelperBase {
 
         click(By.xpath("//img[@alt='Edit']"));
     }
+
+    public void deleteSelectedContacts() {
+
+        click(By.xpath("//input[@value='Delete']"));
+    }
+
 
     public void submitGroupModification() {
         click(By.name("update"));

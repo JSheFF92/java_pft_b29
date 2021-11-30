@@ -5,7 +5,6 @@ import re.stqa.pft.addressbook.model.ContactData;
 
 public class ContactCreatedTests extends TestBase {
 
-
     @Test
     public void testContactCreated() {
         app.getNavigationHelper().gotoContactPage();
