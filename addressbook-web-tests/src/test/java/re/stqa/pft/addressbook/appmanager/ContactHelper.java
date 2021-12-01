@@ -18,12 +18,12 @@ public class ContactHelper extends HelperBase {
         click(By.name("firstname"));
     }
 
-    public void fillContactForm(ContactData homeWorkData) {
-        type(By.name("firstname"), homeWorkData.getName());
-        type(By.name("lastname"), homeWorkData.getLastname());
-        type(By.name("address"), homeWorkData.getAddress());
-        type(By.name("mobile"), homeWorkData.getMobile());
-        type(By.name("email"), homeWorkData.getEmail());
+    public void fillContactForm(ContactData contactData) {
+        type(By.name("firstname"), contactData.getName());
+        type(By.name("lastname"), contactData.getLastname());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("mobile"), contactData.getMobile());
+        type(By.name("email"), contactData.getEmail());
     }
 
     public void selectContact() {
