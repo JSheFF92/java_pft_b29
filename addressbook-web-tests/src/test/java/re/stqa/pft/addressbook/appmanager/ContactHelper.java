@@ -19,11 +19,11 @@ public class ContactHelper extends HelperBase {
     }
 
     public void fillContactForm(ContactData contactData) {
-        type(By.name("firstname"), contactData.getName());
-        type(By.name("lastname"), contactData.getLastname());
-        type(By.name("address"), contactData.getAddress());
-        type(By.name("mobile"), contactData.getMobile());
-        type(By.name("email"), contactData.getEmail());
+        type1(By.name("firstname"), contactData.getName());
+        type1(By.name("lastname"), contactData.getLastname());
+        type1(By.name("address"), contactData.getAddress());
+        type1(By.name("mobile"), contactData.getMobile());
+        type1(By.name("email"), contactData.getEmail());
     }
 
     public void selectContact() {
