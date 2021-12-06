@@ -9,17 +9,35 @@ public class NavigationHelper extends HelperBase{
         super (wd);
     }
 
+
+
+
     public void gotoGroupPage() {
+        if (isElementPresent(By.tagName("h1"))
+                && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+                && isElementPresent(By.name("new"))){
+            return;
+        }
         click(By.linkText("groups"));
     }
 
+
     public void gotoContactPage() {
+        if (isElementPresent(By.tagName("h1"))
+                && wd.findElement(By.tagName("h1")).getText().equals("add new")
+                && isElementPresent(By.name("add new"))){
+            return;
+        }
         click(By.linkText("add new"));
     }
 
 
     public void gotoContactModificate() {
+        if (isElementPresent(By.tagName("h1"))
+                && wd.findElement(By.tagName("h1")).getText().equals("home")
+                && isElementPresent(By.name("Edit"))){
+            return;
+        }
         click(By.linkText("home"));
     }
-
 }
