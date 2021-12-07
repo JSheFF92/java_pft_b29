@@ -10,7 +10,7 @@ public class GroupHelper extends HelperBase {
         super(wd);
     }
 
-    public void returnToGroupPage() {
+    public void returnToHomeGroupPage() {
         if (isElementPresent(By.id("maintable"))){
             return;
         }
@@ -54,4 +54,15 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
+    public void createGroup(GroupData group) {
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returnToHomeGroupPage();
+    }
+
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]"));
+    }
 }
