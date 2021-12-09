@@ -14,7 +14,7 @@ public class GroupHelper extends HelperBase {
         if (isElementPresent(By.id("maintable"))){
             return;
         }
-        click(By.linkText("home"));
+        click(By.linkText("groups"));
     }
 
     public void submitGroupCreation() {
