@@ -33,7 +33,7 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 
-        wd.get("http://localhost/addressbook/");
+        wd.get("http://localhost/addressbook");
         groupHelper = new GroupHelper(wd);
         contactHelper = new ContactHelper(wd);
         navigationHelper = new NavigationHelper(wd);
