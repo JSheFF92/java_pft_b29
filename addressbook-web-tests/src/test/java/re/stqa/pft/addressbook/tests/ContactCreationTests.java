@@ -13,20 +13,14 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreated() {
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().gotoContactPage();
-        ContactData contact = new ContactData(before.get(before.size()-1).getId(),"aaa", null, null, null, null, "[none]");
+        ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "bbb", null, null, null, null, "[none]");
 
         app.getContactHelper().createContact(contact);
 
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        int max = 0;
-        for (ContactData c : after){
-            if (c.getId() > max){
-                max = c.getId();
-            }
-        }
-        contact.setId(max);
+        contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
         before.add(contact);
         Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
     }
