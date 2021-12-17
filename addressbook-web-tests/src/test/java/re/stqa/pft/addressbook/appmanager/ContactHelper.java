@@ -73,6 +73,14 @@ public class ContactHelper extends HelperBase {
         returnToHomeContactPage();
     }
 
+    public void modifyContact(int index, ContactData contact) {
+        selectContact(index);
+        initContactModification();
+        fillContactForm(contact, false);
+        submitContactModification();
+        returnToHomeContactPage();
+    }
+
     public boolean isThereAContactDel() {
         return isElementPresent(By.xpath("//img[@alt='Edit']"));
     }
