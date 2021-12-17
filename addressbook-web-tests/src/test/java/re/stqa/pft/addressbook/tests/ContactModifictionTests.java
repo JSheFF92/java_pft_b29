@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ContactModifictionTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testContactModification() {
         app.getNavigationHelper().gotoContactModificate();
         if (!app.getContactHelper().isThereAContactModif()) {
