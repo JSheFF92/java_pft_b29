@@ -12,7 +12,7 @@ public class NavigationHelper extends HelperBase{
 
 
 
-    public void gotoGroupPage() {
+    public void GroupPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))){
@@ -22,7 +22,7 @@ public class NavigationHelper extends HelperBase{
     }
 
 
-    public void gotoContactPage() {
+    public void ContactPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("add new")
                 && isElementPresent(By.name("add new"))){
@@ -32,7 +32,7 @@ public class NavigationHelper extends HelperBase{
     }
 
 
-    public void gotoContactModificate() {
+    public void ContactMDPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("home")
                 && isElementPresent(By.name("Edit"))){
