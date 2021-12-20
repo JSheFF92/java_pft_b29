@@ -54,8 +54,8 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public void initContactModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initContactModification(int id) {
+        wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
     }
 
     public void deleteSelectedContacts() {
@@ -82,8 +82,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        selectContactById(contact.getId());
-        initContactModification();
+        initContactModification(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
         contactCashe = null;
