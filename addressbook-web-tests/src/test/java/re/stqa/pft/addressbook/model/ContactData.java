@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class ContactData {
     private int id = Integer.MAX_VALUE;
-    ;
     private String firstname;
     private String lastname;
     private String address;
@@ -15,7 +14,26 @@ public class ContactData {
     private String email2;
     private String email3;
     private String group;
+    private String allPhones;
+    private String allEmails;
 
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public ContactData withAllEmails(String allMails) {
+        this.allEmails = allMails;
+        return this;
+    }
 
     public int getId() {
         return id;

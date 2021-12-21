@@ -51,7 +51,7 @@ public class ContactHelper extends HelperBase {
 
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).
-                withAddress(address).withEmail(email).withEmail(email2).withEmail(email3).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+                withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
     }
 
     public void selectContactById(int id) {
@@ -128,13 +128,13 @@ public class ContactHelper extends HelperBase {
             List<WebElement> cells = element.findElements(By.xpath(".//td"));
             String firstName = cells.get(2).getText();
             String lastName = cells.get(1).getText();
-            String[] phones = cells.get(5).getText().split("\n");
+            String allPhones = cells.get(5).getText();
             String address = cells.get(3).getText();
-            String[] allEmail = cells.get(4).getText().split("\n");
+            String allEmails = cells.get(4).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contactCashe.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
-                    .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2])
-                    .withEmail(allEmail[0]).withEmail2(allEmail[1]).withEmail3(allEmail[2])
+                    .withAllPhones(allPhones)
+                    .withAllEmails(allEmails)
                     .withAddress(address));
         }
         return new Contacts(contactCashe);
