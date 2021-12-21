@@ -5,10 +5,12 @@ import java.util.Objects;
 public class ContactData {
     private int id = Integer.MAX_VALUE;
     ;
-    private String name;
+    private String firstname;
     private String lastname;
     private String address;
-    private String mobile;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
     private String email;
     private String group;
 
@@ -22,8 +24,8 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withName(String name) {
-        this.name = name;
+    public ContactData withFirstname(String name) {
+        this.firstname = name;
         return this;
     }
 
@@ -37,8 +39,18 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withMobile(String mobile) {
-        this.mobile = mobile;
+    public ContactData withHomePhone(String home) {
+        this.homePhone = home;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobile) {
+        this.mobilePhone = mobile;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String work) {
+        this.workPhone = work;
         return this;
     }
 
@@ -52,8 +64,8 @@ public class ContactData {
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
     public String getLastname() {
@@ -64,8 +76,16 @@ public class ContactData {
         return address;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
     }
 
     public String getEmail() {
@@ -80,7 +100,7 @@ public class ContactData {
     public String toString() {
         return "ContactData{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + firstname + '\'' +
                 '}';
     }
 
@@ -89,11 +109,12 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+        return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastname);
+        return Objects.hash(id, firstname, lastname);
     }
+
 }
