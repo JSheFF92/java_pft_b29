@@ -128,8 +128,14 @@ public class ContactHelper extends HelperBase {
             List<WebElement> cells = element.findElements(By.xpath(".//td"));
             String firstName = cells.get(2).getText();
             String lastName = cells.get(1).getText();
+            String[] phones = cells.get(5).getText().split("\n");
+            String address = cells.get(3).getText();
+            String[] allEmail = cells.get(4).getText().split("\n");
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contactCashe.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
+            contactCashe.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
+                    .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2])
+                    .withEmail(allEmail[0]).withEmail2(allEmail[1]).withEmail3(allEmail[2])
+                    .withAddress(address));
         }
         return new Contacts(contactCashe);
     }
