@@ -26,7 +26,7 @@ public class ContactPhonesAddressEmail extends TestBase {
 
 
     private String mergePhones(ContactData contact) {
-        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
+        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getSecondPhone())
                 .stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
     }
 
@@ -46,7 +46,7 @@ public class ContactPhonesAddressEmail extends TestBase {
     }
 
     public String cleanedEmail(String email) {
-        return email.replaceAll("\\s", "").replaceAll("", "");
+        return email.replaceAll("\\s", "");
     }
 
     public String cleanedAddress(String address) {
