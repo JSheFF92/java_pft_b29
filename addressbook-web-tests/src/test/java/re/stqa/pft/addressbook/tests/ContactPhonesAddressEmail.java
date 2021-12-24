@@ -27,29 +27,35 @@ public class ContactPhonesAddressEmail extends TestBase {
 
     private String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getSecondPhone())
-                .stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
+                .stream().filter((s) -> !s.equals(""))
+                .map(ContactPhonesAddressEmail::cleanedPhone)
+                .collect(Collectors.joining("\n"));
     }
 
     private String mergeMails(ContactData contact) {
         return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-                .stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
+                .stream().filter((s) -> !s.equals(""))
+                .map(ContactPhonesAddressEmail::cleanedEmail)
+                .collect(Collectors.joining("\n"));
     }
 
     private String mergeAddress(ContactData contact) {
         return Arrays.asList(contact.getAddress())
-                .stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
+                .stream().filter((s) -> !s.equals(""))
+                .map(ContactPhonesAddressEmail::cleanedAddress)
+                .collect(Collectors.joining("\n"));
     }
 
 
-    public String cleanedPhone(String phone) {
+    public static String cleanedPhone(String phone) {
         return phone.replaceAll("\\s", "").replaceAll("[- ()] ", "");
     }
 
-    public String cleanedEmail(String email) {
+    public static String cleanedEmail(String email) {
         return email.replaceAll("\\s", "");
     }
 
-    public String cleanedAddress(String address) {
+    public static String cleanedAddress(String address) {
         return address.replaceAll("\\s", "");
     }
 }
