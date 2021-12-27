@@ -18,16 +18,15 @@ public class ContactCreationTests extends TestBase {
     @DataProvider
     public Iterator<Object[]> validContacts(){
         List<Object[]> list = new ArrayList<Object[]>();
-        list.add(new Object[] {"test1", "lastName 1"});
-        list.add(new Object[] {"test2", "lastName 2"});
-        list.add(new Object[] {"test3", "lastName 3"});
+        File photo = new File("src/test/resources/stru.png");
+        list.add(new Object[] {new ContactData().withFirstname("test1").withLastname("lastName1").withGroup("[none]").withPhoto(photo)});
+        list.add(new Object[] {new ContactData().withFirstname("test2").withLastname("lastName2").withGroup("[none]").withPhoto(photo)});
+        list.add(new Object[] {new ContactData().withFirstname("test3").withLastname("lastName3").withGroup("[none]").withPhoto(photo)});
         return list.iterator();
     }
 
     @Test(dataProvider = "validContacts")
-    public void testContactCreated(String firstName, String lastName) {
-            File photo = new File("src/test/resources/stru.png");
-            ContactData contact = new ContactData().withFirstname(firstName).withLastname(lastName).withGroup("[none]").withPhoto(photo);
+    public void testContactCreated(ContactData contact) {
             app.goTo().ContactMDPage();
             Contacts before = app.contact().all();
             app.goTo().ContactPage();
