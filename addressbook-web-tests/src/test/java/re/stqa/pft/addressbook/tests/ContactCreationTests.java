@@ -52,7 +52,7 @@ public class ContactCreationTests extends TestBase {
         app.goTo().ContactMDPage();
         Contacts before = app.contact().all();
         app.goTo().ContactPage();
-        ContactData contact = new ContactData().withFirstname("aaa'").withLastname("bbb").withGroup("[none]");
+        ContactData contact = new ContactData().withFirstname("aaa'").withLastname("bbb").withGroup(1);
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();

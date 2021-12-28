@@ -31,11 +31,21 @@ public class ContactHelper extends HelperBase {
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
         attach(By.name("photo"), contactData.getPhoto());
+
         if (creation) {
-           new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+           Select select = new Select(wd.findElement(By.name("new_group")));
+           if (select.getOptions().size() > 0 && select.getOptions().size() > contactData.getGroup()){
+               select.selectByIndex(contactData.getGroup());
+           }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
+
+/*        if (creation) {
+           new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }*/
     }
 
     public ContactData infoFromEditForm(ContactData contact){
