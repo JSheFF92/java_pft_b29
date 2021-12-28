@@ -3,6 +3,8 @@ package re.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import re.stqa.pft.addressbook.model.GroupData;
 
@@ -24,13 +26,12 @@ public class GroupDataGenerator {
     @Parameter(names = "-da", description = "Group format")
     public String format;
 
-
     public static void main(String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
-        } catch (ParameterException ex){
+        } catch (ParameterException ex) {
             jCommander.usage();
             return;
         }
@@ -39,13 +40,23 @@ public class GroupDataGenerator {
 
     private void run() throws IOException {
         List<GroupData> groups = generateGroups(count);
-        if (format.equals("csv")){
+        if (format.equals("csv")) {
             saveAsCsv(groups, new File(file));
-        } else if (format.equals("xml")){
+        } else if (format.equals("xml")) {
             saveASXml(groups, new File(file));
+        } else if (format.equals("json")) {
+            saveASJson(groups, new File(file));
         } else {
             System.out.println("Unrecognized format group " + format);
         }
+    }
+
+    private void saveASJson(List<GroupData> groups, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(groups);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
+        writer.close();
     }
 
     private void saveASXml(List<GroupData> groups, File file) throws IOException {
