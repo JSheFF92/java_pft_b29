@@ -8,7 +8,10 @@ import org.testng.annotations.Test;
 import re.stqa.pft.addressbook.model.ContactData;
 import re.stqa.pft.addressbook.model.Contacts;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -54,7 +57,8 @@ public class ContactCreationTests extends TestBase {
     }
 
     @Test(dataProvider = "validContactsFromJson")
-    public void testContactCreated(ContactData contact) {
+    public void testContactCreation(ContactData contact) {
+
         app.goTo().ContactMDPage();
         Contacts before = app.contact().all();
         app.goTo().ContactPage();
@@ -66,7 +70,7 @@ public class ContactCreationTests extends TestBase {
     }
 
     @Test(enabled = false)
-    public void testBadContactCreated() throws IOException {
+    public void testBadContactCreation() throws IOException {
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));

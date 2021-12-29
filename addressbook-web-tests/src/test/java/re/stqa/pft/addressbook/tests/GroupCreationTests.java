@@ -8,7 +8,10 @@ import org.testng.annotations.Test;
 import re.stqa.pft.addressbook.model.GroupData;
 import re.stqa.pft.addressbook.model.Groups;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -60,7 +63,6 @@ public class GroupCreationTests extends TestBase {
         Groups after = app.group().all();
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-
     }
 
     @Test(enabled = false)
