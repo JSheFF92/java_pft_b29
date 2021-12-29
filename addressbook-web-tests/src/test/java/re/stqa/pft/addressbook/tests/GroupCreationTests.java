@@ -8,12 +8,10 @@ import org.testng.annotations.Test;
 import re.stqa.pft.addressbook.model.GroupData;
 import re.stqa.pft.addressbook.model.Groups;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -66,10 +64,14 @@ public class GroupCreationTests extends TestBase {
     }
 
     @Test(enabled = false)
-    public void testBadGroupCreation() {
+    public void testBadGroupCreation() throws IOException {
+        Properties properties = new Properties();
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
         app.goTo().GroupPage();
         Groups before = app.group().all();
-        GroupData group = new GroupData().withName("test'");
+        GroupData group = new GroupData().withName(properties.getProperty("G.BadName"));
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size()));
         Groups after = app.group().all();

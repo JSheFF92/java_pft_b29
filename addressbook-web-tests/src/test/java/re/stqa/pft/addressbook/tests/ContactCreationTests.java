@@ -8,12 +8,10 @@ import org.testng.annotations.Test;
 import re.stqa.pft.addressbook.model.ContactData;
 import re.stqa.pft.addressbook.model.Contacts;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -68,11 +66,14 @@ public class ContactCreationTests extends TestBase {
     }
 
     @Test(enabled = false)
-    public void testBadContactCreated() {
+    public void testBadContactCreated() throws IOException {
+        Properties properties = new Properties();
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         app.goTo().ContactMDPage();
         Contacts before = app.contact().all();
         app.goTo().ContactPage();
-        ContactData contact = new ContactData().withFirstname("aaa'").withLastname("bbb").withGroup(1);
+        ContactData contact = new ContactData().withFirstname(properties.getProperty("C.FirstName")).withLastname(properties.getProperty("C.LastName")).withGroup(1);
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();

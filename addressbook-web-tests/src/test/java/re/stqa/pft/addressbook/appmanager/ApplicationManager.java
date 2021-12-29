@@ -15,6 +15,7 @@ import java.util.Properties;
 public class ApplicationManager {
 
     private final Properties properties;
+
     public WebDriver wd;
 
     private SessionHelper sessionHelper;
