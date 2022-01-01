@@ -1,23 +1,39 @@
 package re.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.io.File;
 import java.util.Objects;
 
-@XStreamAlias("contact")
-
+/*@XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")*/
+//13 минута видео
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
+    @Column(name = "firstname")
+    @Type(type = "text")
     private String firstname;
+
     @Expose
+    @Column(name = "lastname")
+    @Type(type = "text")
     private String lastname;
+
     @Expose
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
@@ -28,6 +44,7 @@ public class ContactData {
     private int group;
     private String allPhones;
     private String allEmails;
+
     private File photo;
 
     public File getPhoto() {
@@ -52,8 +69,8 @@ public class ContactData {
         return allEmails;
     }
 
-    public ContactData withAllEmails(String allMails) {
-        this.allEmails = allMails;
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
         return this;
     }
 
@@ -152,9 +169,11 @@ public class ContactData {
     public String getEmail() {
         return email;
     }
+
     public String getEmail2() {
         return email2;
     }
+
     public String getEmail3() {
         return email3;
     }
