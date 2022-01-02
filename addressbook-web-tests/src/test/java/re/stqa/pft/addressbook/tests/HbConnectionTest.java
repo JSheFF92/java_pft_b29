@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HbConnectionTest {
 
-   private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @BeforeClass
     protected void setUp() throws Exception {
@@ -22,10 +22,10 @@ public class HbConnectionTest {
                 .configure()
                 .build();
         try {
-            sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
             e.printStackTrace();
-            StandardServiceRegistryBuilder.destroy( registry );
+            StandardServiceRegistryBuilder.destroy(registry);
         }
     }
 
@@ -34,7 +34,7 @@ public class HbConnectionTest {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<GroupData> result = session.createQuery("from GroupData").list();
-        for (GroupData group:result) {
+        for (GroupData group : result) {
             System.out.println(group);
         }
         session.getTransaction().commit();
@@ -45,8 +45,8 @@ public class HbConnectionTest {
     public void testHbConnectionC() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<ContactData> result = session.createQuery("from ContactData").list();
-        for (ContactData contact:result) {
+        List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
+        for (ContactData contact : result) {
             System.out.println(contact);
         }
         session.getTransaction().commit();

@@ -1,58 +1,68 @@
 package re.stqa.pft.addressbook.model;
 
-import com.google.gson.annotations.Expose;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
-/*@XStreamAlias("contact")
+
 @Entity
-@Table(name = "addressbook")*/
-//13 минута видео
+@Table(name = "addressbook")
+
 public class ContactData {
-    @XStreamOmitField
+
     @Id
     @Column(name = "id")
     private int id = Integer.MAX_VALUE;
 
-    @Expose
     @Column(name = "firstname")
-    @Type(type = "text")
     private String firstname;
 
-    @Expose
     @Column(name = "lastname")
-    @Type(type = "text")
     private String lastname;
 
-    @Expose
     @Column(name = "address")
     @Type(type = "text")
     private String address;
 
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
-    private String secondPhone;
-    private String email;
-    private String email2;
-    private String email3;
+
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+
+    @Transient
     private int group;
+    @Transient
+    private String secondPhone;
+    @Transient
+    private String email;
+    @Transient
+    private String email2;
+    @Transient
+    private String email3;
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmails;
 
-    private File photo;
-
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -185,8 +195,9 @@ public class ContactData {
     @Override
     public String toString() {
         return "ContactData{" +
-                "id='" + id + '\'' +
-                ", name='" + firstname + '\'' +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 '}';
     }
 
