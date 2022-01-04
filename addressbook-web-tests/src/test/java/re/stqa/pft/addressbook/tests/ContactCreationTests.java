@@ -60,11 +60,11 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation(ContactData contact) {
 
         app.goTo().ContactMDPage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.goTo().ContactPage();
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
@@ -75,12 +75,13 @@ public class ContactCreationTests extends TestBase {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         app.goTo().ContactMDPage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.goTo().ContactPage();
-        ContactData contact = new ContactData().withFirstname(properties.getProperty("C.FirstName")).withLastname(properties.getProperty("C.LastName")).withGroup(1);
+        ContactData contact = new ContactData().withFirstname(properties.getProperty("C.FirstName")).withLastname(properties.getProperty("C.LastName")).withGroup(1)
+                .withAddress(properties.getProperty("C.Address"));
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before));
     }
 }

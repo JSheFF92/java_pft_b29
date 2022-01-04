@@ -28,7 +28,6 @@ public class GroupModifictionTests extends TestBase {
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
         Groups before = app.db().groups();
         GroupData modifyedGroup = before.iterator().next();
         GroupData group = new GroupData()

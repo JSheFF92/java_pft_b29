@@ -21,22 +21,20 @@ public class GroupDelitionTests extends TestBase {
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
-        app.goTo().GroupPage();
-        if (app.group().all().size() == 0) {
+        if (app.db().groups().size() == 0) {
+            app.goTo().GroupPage();
             app.group().create(new GroupData().withName(properties.getProperty("G.Name")));
         }
     }
 
     @Test
     public void testGroupDelition() {
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData deletedGroup = before.iterator().next();
+        app.goTo().GroupPage();
         app.group().delete(deletedGroup);
         assertThat(app.group().count(), equalTo(before.size() - 1));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before.withOut(deletedGroup)));
     }
-
-
 }

@@ -20,22 +20,20 @@ public class ContactDeletionTests extends TestBase {
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        app.goTo().ContactMDPage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().ContactMDPage();
             app.contact().create(new ContactData().withFirstname(properties.getProperty("C.FirstName")));
         }
     }
 
     @Test
     public void testDeletionContact() {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
         app.goTo().ContactMDPage();
         assertThat(app.contact().count(), equalTo(before.size() - 1));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.withOut(deletedContact)));
     }
-
-
 }
