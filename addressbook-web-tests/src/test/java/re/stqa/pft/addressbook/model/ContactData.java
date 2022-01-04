@@ -58,11 +58,7 @@ public class ContactData {
     private String allEmails;
 
     public File getPhoto() {
-        if (photo != null) {
-            return new File(photo);
-        } else {
-            return null;
-        }
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
