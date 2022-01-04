@@ -17,11 +17,12 @@ public class ContactModifictionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() throws IOException {
+
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        app.goTo().ContactMDPage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().ContactMDPage();
             app.contact().create(new ContactData().withFirstname(properties.getProperty("C.FirstName")).withGroup(1));
         }
     }
@@ -31,13 +32,14 @@ public class ContactModifictionTests extends TestBase {
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifyedContact = before.iterator().next();
         ContactData contact = new ContactData().
                 withId(modifyedContact.getId()).withFirstname(properties.getProperty("C.FirstName")).withLastname(properties.getProperty("C.LastName"));
+        app.goTo().ContactMDPage();
         app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.withOut(modifyedContact).withAdded(contact)));
     }
 }
