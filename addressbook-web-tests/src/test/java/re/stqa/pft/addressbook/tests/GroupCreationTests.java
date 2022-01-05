@@ -71,7 +71,6 @@ public class GroupCreationTests extends TestBase {
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
         app.goTo().GroupPage();
         Groups before = app.db().groups();
         GroupData group = new GroupData().withName(properties.getProperty("G.BadName"));

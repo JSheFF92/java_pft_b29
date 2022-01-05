@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import re.stqa.pft.addressbook.model.ContactData;
 import re.stqa.pft.addressbook.model.Contacts;
+import re.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -78,7 +79,7 @@ public class ContactCreationTests extends TestBase {
         app.goTo().ContactMDPage();
         Contacts before = app.db().contacts();
         app.goTo().ContactPage();
-        ContactData contact = new ContactData().withFirstname(properties.getProperty("C.FirstName")).withLastname(properties.getProperty("C.LastName")).withGroup(1)
+        ContactData contact = new ContactData().withFirstname(properties.getProperty("C.FirstName")).withLastname(properties.getProperty("C.LastName"))
                 .withAddress(properties.getProperty("C.Address"));
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
@@ -86,4 +87,17 @@ public class ContactCreationTests extends TestBase {
         assertThat(after, equalTo(before));
         verifyContactListInUI();
     }
-}
+
+    @Test
+    public void testContactInGroups(){
+        Groups groups = app.db().groups();
+        File photo = new File("src/test/resources/stru.png");
+        ContactData newContact = new ContactData().withFirstname("test_name").withLastname("test_surename").withPhoto(photo)
+                .inGroup(groups.iterator().next());
+        app.goTo().ContactMDPage();
+        app.contact().initContactCreation();
+        app.contact().fillContactForm(newContact, true);
+        app.contact().submitContactCreation();
+        app.contact().returnToHomeContactPage();
+        }
+    }

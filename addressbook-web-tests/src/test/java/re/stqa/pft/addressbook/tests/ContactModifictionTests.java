@@ -23,7 +23,7 @@ public class ContactModifictionTests extends TestBase {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         if (app.db().contacts().size() == 0) {
             app.goTo().ContactMDPage();
-            app.contact().create(new ContactData().withFirstname(properties.getProperty("C.FirstName")).withGroup(1));
+            app.contact().create(new ContactData().withFirstname(properties.getProperty("C.FirstName")));
         }
     }
 
