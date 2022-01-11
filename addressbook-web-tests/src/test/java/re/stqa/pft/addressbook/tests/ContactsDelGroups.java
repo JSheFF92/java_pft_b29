@@ -1,6 +1,5 @@
 package re.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import re.stqa.pft.addressbook.model.ContactData;
@@ -8,7 +7,8 @@ import re.stqa.pft.addressbook.model.Contacts;
 import re.stqa.pft.addressbook.model.GroupData;
 import re.stqa.pft.addressbook.model.Groups;
 
-import java.util.HashSet;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactsDelGroups extends TestBase {
 
@@ -18,63 +18,51 @@ public class ContactsDelGroups extends TestBase {
             app.goTo().GroupPage();
             app.group().create(new GroupData().withName("test1"));
         }
-        if (app.db().contacts().size() == 0) {
-            app.goTo().ContactMDPage();
-            app.contact().create(new ContactData().withFirstname("C.FirstName").withLastname("C.LastName"));
-        }
     }
 
     @Test
     public void testContactDelGroups() {
-        Groups groups = app.db().groups();
-        GroupData deletedContact = groups.iterator().next();
-        ContactData modifyedContact = deletedContact();
-        Contacts before = app.db().contacts();
+        ContactData addC = selectedContact();
+        Groups before = addC.getGroups();
+        GroupData GroupToAdd = selectGroups(addC);
+        app.contact().deleteContactGroup(addC, GroupToAdd);
 
-        app.group().ContactDeletedGroup(deletedContact);
-        app.contact().ContactDeletedGroup(modifyedContact.delGroup(groups.iterator().next()));
-        Contacts after = app.db().contacts();
-
-        int max = 0;
-        for (ContactData c : after){
-            if (c.getId() > max){
-                max = c.getId();
+        Contacts contacts = app.db().contacts();
+        Groups after = null;
+        for(ContactData contact: contacts){
+            if (contact.getId() == addC.getId()){
+                after = contact.getGroups();
             }
         }
-        modifyedContact.setId(max);
-        before.add(modifyedContact);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        assertThat(after, equalTo(before.withOut(GroupToAdd)));
     }
 
-    public ContactData deletedContact() {
-        Contacts contacts = app.db().contacts();
-        Groups groups = app.db().groups();
-        for (ContactData contact : contacts) {
-            if (contact.getGroups().size() == groups.size()) {
-                selectedContact();
-                ContactData modifyedContact = selectedContact();
-                app.contact().ContactInGroup(modifyedContact.inGroup(groups.iterator().next()));
-                return contact;
-            } else if (contact.getGroups().size() < groups.size()) {
-                Contacts contacts2 = app.db().contacts();
-                for (ContactData contact2 : contacts2) {
-                    selectedContact();
-                    ContactData modifyedContact = selectedContact();
-                    app.contact().ContactInGroup(modifyedContact.inGroup(groups.iterator().next()));
-                    return contact2;
-                }
-            }
-        }
-        return contacts.iterator().next();
+    public GroupData selectGroups(ContactData contact){
+        return contact.getGroups().iterator().next();
     }
 
     public ContactData selectedContact() {
         Contacts contacts = app.db().contacts();
         Groups groups = app.db().groups();
+        int i = contacts.size();
         for (ContactData contact : contacts) {
-            if (contact.getGroups().size() < groups.size()) {
+            if (contact.getGroups().size() > 0) {
                 return contact;
             }
+            if (contact.getGroups().size() == 0) {
+                i = i - 1;
+            }
+        }
+        if (i == 0) {
+            app.contact().create(new ContactData().withFirstname("C.FirstName").withLastname("C.LastName")
+                    .inGroup(groups.iterator().next()));
+            Contacts contacts2 = app.db().contacts();
+            for (ContactData contact2 : contacts2) {
+                if (contact2.getGroups().size() > 0) {
+                    return contact2;
+                }
+            }
+            contacts = contacts2;
         }
         return contacts.iterator().next();
     }

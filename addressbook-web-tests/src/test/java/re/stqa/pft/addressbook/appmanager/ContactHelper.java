@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import re.stqa.pft.addressbook.model.ContactData;
 import re.stqa.pft.addressbook.model.Contacts;
+import re.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -171,7 +172,7 @@ public class ContactHelper extends HelperBase {
         returnToHomeContactPage();
     }
 
-    public void ContactDeletedGroup(ContactData contact){
+/*    public void ContactDeletedGroup(ContactData contact){
         initContactDelet(contact.getId());
         contactCashe = null;
         returnToHomeContactPage();
@@ -180,11 +181,11 @@ public class ContactHelper extends HelperBase {
     public void initContactDelet(int id){
         wd.findElement(By.xpath("//input[@id="+ id +"]")).click();
         wd.findElement(By.xpath("//input[@name='remove']")).click();
-    }
+    }*/
 
 
 
-/*    public void deleteContactGroup(ContactData contact, GroupData group){
+    public void deleteContactGroup(ContactData contact, GroupData group){
         ContactDeletedGroup(group);
         selectContactById(contact.getId());
         initContactDelete();
@@ -194,6 +195,6 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//input[@name='remove']")).click();
     }
     public void ContactDeletedGroup(GroupData group){
-        new Select(wd.findElement(By.xpath("//input[@name='group']"))).selectByValue(String.valueOf(group.getId()));
-    }*/
+        new Select(wd.findElement(By.xpath("//select[@name='group']"))).selectByValue(String.valueOf(group.getId()));
+    }
 }
