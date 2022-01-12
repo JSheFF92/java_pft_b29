@@ -34,22 +34,14 @@ public class ContactsInGroups extends TestBase {
         Contacts after = app.db().contacts();
 
         int max = 0;
-        for (ContactData c : after){
-            if (c.getId() > max){
+        for (ContactData c : after) {
+            if (c.getId() > max) {
                 max = c.getId();
             }
         }
         modifyedContact.setId(max);
         before.add(modifyedContact);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
-
-
-
-
-/*        Groups before = app.db().groups();
-        assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.db().groups();
-        assertThat(after, equalTo(before));*/
     }
 
     public ContactData selectedContact() {

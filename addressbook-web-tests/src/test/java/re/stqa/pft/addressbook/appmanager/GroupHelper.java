@@ -106,14 +106,4 @@ public class GroupHelper extends HelperBase {
         return new Groups(groupCashe);
     }
 
-
-    public void initDelContactinGroup(int id) {
-        wd.findElement(By.name("group")).click();
-        wd.findElement(By.xpath("//select[@name='group']//option[@value='" + id + "']")).click();
-    }
-
-    public void ContactDeletedGroup(GroupData group){
-        initDelContactinGroup(group.getId());
-        groupCashe = null;
-    }
 }

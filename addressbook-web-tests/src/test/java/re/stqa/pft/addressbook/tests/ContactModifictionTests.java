@@ -17,7 +17,6 @@ public class ContactModifictionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() throws IOException {
-
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));

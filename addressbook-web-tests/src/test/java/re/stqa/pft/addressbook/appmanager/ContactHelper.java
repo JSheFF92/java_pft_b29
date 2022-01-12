@@ -172,19 +172,6 @@ public class ContactHelper extends HelperBase {
         returnToHomeContactPage();
     }
 
-/*    public void ContactDeletedGroup(ContactData contact){
-        initContactDelet(contact.getId());
-        contactCashe = null;
-        returnToHomeContactPage();
-    }
-
-    public void initContactDelet(int id){
-        wd.findElement(By.xpath("//input[@id="+ id +"]")).click();
-        wd.findElement(By.xpath("//input[@name='remove']")).click();
-    }*/
-
-
-
     public void deleteContactGroup(ContactData contact, GroupData group){
         ContactDeletedGroup(group);
         selectContactById(contact.getId());

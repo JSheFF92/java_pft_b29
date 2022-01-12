@@ -29,15 +29,15 @@ public class ContactsDelGroups extends TestBase {
 
         Contacts contacts = app.db().contacts();
         Groups after = null;
-        for(ContactData contact: contacts){
-            if (contact.getId() == addC.getId()){
+        for (ContactData contact : contacts) {
+            if (contact.getId() == addC.getId()) {
                 after = contact.getGroups();
             }
         }
         assertThat(after, equalTo(before.withOut(GroupToAdd)));
     }
 
-    public GroupData selectGroups(ContactData contact){
+    public GroupData selectGroups(ContactData contact) {
         return contact.getGroups().iterator().next();
     }
 

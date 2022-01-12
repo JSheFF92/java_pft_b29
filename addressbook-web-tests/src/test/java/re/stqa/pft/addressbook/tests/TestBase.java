@@ -60,7 +60,6 @@ public class TestBase {
     }
 
 
-
     public void verifyContactListInUI() {
         if (Boolean.getBoolean("cVerifyUI")) {
             Contacts dbContacts = app.db().contacts();
@@ -81,5 +80,4 @@ public class TestBase {
                     .collect(Collectors.toSet())));
         }
     }
-
 }
