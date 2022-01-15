@@ -16,7 +16,6 @@ public class FtpHelper {
         ftp = new FTPClient();
     }
 
-
     public void upload (File file, String target, String backup) throws IOException {
         ftp.connect(app.getProperty("ftp.host"));
         ftp.login(app.getProperty("ftp.login"), app.getProperty("ftp.password"));
@@ -26,14 +25,11 @@ public class FtpHelper {
         ftp.disconnect();
     }
 
-
     public void restore(String target, String backup) throws IOException{
     ftp.connect(app.getProperty("ftp.host"));
     ftp.login(app.getProperty("ftp.login"), app.getProperty("ftp.password"));
     ftp.deleteFile(target);
     ftp.rename(backup, target);
     ftp.disconnect();
-
-
     }
 }
