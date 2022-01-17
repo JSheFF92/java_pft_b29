@@ -33,8 +33,8 @@ public class WorkRegistration extends TestBase{
         String user = String.format("user1642247492520", now);
         String password = "password";
         app.registration().finish(confirmationLink, password);
-        assertTrue(app.newSession().login(user, password));
         app.registration().userEnter(user, password);
+        assertTrue(app.newSession().login(user, password));
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
