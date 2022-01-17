@@ -31,7 +31,7 @@ public class WorkRegistration extends TestBase{
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         String user = String.format("user1642247492520", now);
-        String password = "password";
+        String password = "111";
         app.registration().finish(confirmationLink, password);
         app.registration().userEnter(user, password);
         assertTrue(app.newSession().login(user, password));
