@@ -14,6 +14,7 @@ import static org.testng.Assert.assertTrue;
 
 public class WorkRegistration extends TestBase{
 
+
     @BeforeMethod
     public void startMailServer(){
         app.mail().start();
@@ -22,24 +23,18 @@ public class WorkRegistration extends TestBase{
     @Test
     public void testRegistration() throws IOException, MessagingException {
 
+        long now = System.currentTimeMillis();
         app.registration().adminEnter("Administrator", "root");
         app.registration().goToUserPage();
-        app.registration().ResetPassword();
-
-        long now = System.currentTimeMillis();
-
-
-        String email = String.format("user1@localhost.localdomain", now);
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 60000);
+        app.registration().ResetPassword("user1642247492520", "user1642247492520@localhost");
+        String email = String.format("user1642247492520@localhost", now);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
-
-        String user = String.format("user1", now);
+        String user = String.format("user1642247492520", now);
         String password = "password";
-
-
         app.registration().finish(confirmationLink, password);
-
         assertTrue(app.newSession().login(user, password));
+        app.registration().userEnter(user, password);
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
