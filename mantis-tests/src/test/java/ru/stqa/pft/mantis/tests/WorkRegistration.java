@@ -24,17 +24,18 @@ public class WorkRegistration extends TestBase{
     public void testRegistration() throws IOException, MessagingException {
 
         long now = System.currentTimeMillis();
-        app.registration().adminEnter("Administrator", "root");
+        app.registration().adminEnter(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
         app.registration().goToUserPage();
-        app.registration().ResetPassword("user1642247492520", "user1642247492520@localhost");
-        String email = String.format("user1642247492520@localhost", now);
+
+        String resUser = app.getProperty("g.User");
+        app.registration().ResetPassword(resUser);
+        String email = String.format(app.getProperty("g.Email"), now);
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
-        String user = String.format("user1642247492520", now);
-        String password = "111";
+        String password = app.getProperty("g.Password");
         app.registration().finish(confirmationLink, password);
-        app.registration().userEnter(user, password);
-        assertTrue(app.newSession().login(user, password));
+        app.registration().userEnter(resUser, password);
+        assertTrue(app.newSession().login(resUser, password));
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {

@@ -39,14 +39,16 @@ public class RegistrationHelper extends HelperBase{
 
     public void goToUserPage(){
         wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
-        click(By.xpath("//*[@id=\"menu-items\"]/li[6]/a"));
+        click(By.xpath("//*[@id=\"menu-items\"]/li[7]/a"));
         click(By.xpath("//*[@id=\"manage-menu\"]/ul/li[1]/a"));
         click(By.xpath("//a[@href='manage_user_edit_page.php?user_id=5']"));
     }
 
-    public void ResetPassword(String username, String email){
+    public void ResetPassword(String username){
         wd.get(app.getProperty("web.baseUrl") + "/manage_user_edit_page.php?user_id=5");
+       type(By.name("username"), username);
         click(By.xpath("//input[@value='Сбросить пароль']"));
+
     }
 
 }
