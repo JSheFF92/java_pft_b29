@@ -12,11 +12,11 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class WorkRegistration extends TestBase{
+public class WorkRegistration extends TestBase {
 
 
     @BeforeMethod
-    public void startMailServer(){
+    public void startMailServer() {
         app.mail().start();
     }
 
@@ -26,7 +26,6 @@ public class WorkRegistration extends TestBase{
         long now = System.currentTimeMillis();
         app.registration().adminEnter(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
         app.registration().goToUserPage();
-
         String resUser = app.getProperty("g.User");
         app.registration().ResetPassword(resUser);
         String email = String.format(app.getProperty("g.Email"), now);
@@ -40,12 +39,12 @@ public class WorkRegistration extends TestBase{
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
         MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
-        VerbalExpression regex  = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
     }
 
     @AfterMethod(alwaysRun = true)
-    public void stopMailServer(){
+    public void stopMailServer() {
         app.mail().stop();
     }
 }

@@ -2,7 +2,7 @@ package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
 
-public class RegistrationHelper extends HelperBase{
+public class RegistrationHelper extends HelperBase {
 
     public RegistrationHelper(ApplicationManager app) {
         super(app);
@@ -22,14 +22,14 @@ public class RegistrationHelper extends HelperBase{
         click(By.cssSelector("input[value='Изменить учетную запись']"));
     }
 
-    public void adminEnter(String username, String password){
+    public void adminEnter(String username, String password) {
         wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
         type(By.name("username"), username);
         type(By.name("password"), password);
         click(By.cssSelector("input[value='Войти']"));
     }
 
-    public void userEnter(String username, String password){
+    public void userEnter(String username, String password) {
         wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
         type(By.name("username"), username);
         type(By.name("password"), password);
@@ -37,16 +37,16 @@ public class RegistrationHelper extends HelperBase{
 
     }
 
-    public void goToUserPage(){
+    public void goToUserPage() {
         wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
         click(By.xpath("//*[@id=\"menu-items\"]/li[7]/a"));
         click(By.xpath("//*[@id=\"manage-menu\"]/ul/li[1]/a"));
         click(By.xpath("//a[@href='manage_user_edit_page.php?user_id=5']"));
     }
 
-    public void ResetPassword(String username){
+    public void ResetPassword(String username) {
         wd.get(app.getProperty("web.baseUrl") + "/manage_user_edit_page.php?user_id=5");
-       type(By.name("username"), username);
+        type(By.name("username"), username);
         click(By.xpath("//input[@value='Сбросить пароль']"));
 
     }
