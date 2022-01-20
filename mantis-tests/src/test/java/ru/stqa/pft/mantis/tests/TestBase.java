@@ -29,12 +29,13 @@ public class TestBase {
         app.stop();
     }
 
-    boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
-        if (app.soap().getIssueStatus(issueId).equals("resolved")){
-            return true;
+   public boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+        if ((app.soap().getIssueStatus(issueId).equals("closed"))||(app.soap()
+                .getIssueStatus(issueId).equals("resolved"))){
+            return false;
         }
         else {
-            return false;
+            return true;
         }
     }
 
