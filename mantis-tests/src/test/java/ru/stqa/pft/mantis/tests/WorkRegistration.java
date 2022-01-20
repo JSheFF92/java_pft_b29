@@ -21,12 +21,12 @@ public class WorkRegistration extends TestBase {
     }
 
     @Test
-    public void testRegistration() throws IOException, MessagingException {
+    public void testResetPass() throws IOException, MessagingException {
 
         long now = System.currentTimeMillis();
         app.registration().adminEnter(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
-        app.registration().goToUserPage();
         String resUser = app.getProperty("g.User");
+        app.registration().goToUserPage(resUser);
         app.registration().ResetPassword(resUser);
         String email = String.format(app.getProperty("g.Email"), now);
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
