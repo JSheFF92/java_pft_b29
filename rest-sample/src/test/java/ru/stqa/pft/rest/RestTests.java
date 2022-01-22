@@ -14,11 +14,12 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestTests {
+public class RestTests extends TestBase{
 
 
     @Test
     public void testCreateIssue() throws IOException {
+        skipIfNotFixed(1641);
         Set<Issue> oldIssues = getIsues();
         Issue newIssue = new Issue().withSubject("Test issue").withDescription("New test issue");
         int issueId = createIssue(newIssue);
@@ -26,6 +27,8 @@ public class RestTests {
         oldIssues.add(newIssue.withId(issueId));
         assertEquals(newIssues, oldIssues);
     }
+
+
 
     private Set<Issue> getIsues() throws IOException {
         String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json"))
