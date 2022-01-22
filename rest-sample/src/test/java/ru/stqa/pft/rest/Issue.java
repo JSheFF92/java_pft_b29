@@ -3,6 +3,7 @@ package ru.stqa.pft.rest;
 import java.util.Objects;
 
 public class Issue {
+
     public int getId() {
         return id;
     }
@@ -30,9 +31,20 @@ public class Issue {
         return this;
     }
 
+
+    public String getState_name() {
+        return state_name;
+    }
+
+    public Issue withGetStatus(String Status) {
+        this.state_name = Status;
+        return this;
+    }
+
     private int id;
     private String subject;
     private String description;
+    private String state_name;
 
     @Override
     public boolean equals(Object o) {
