@@ -13,14 +13,12 @@ import java.util.Set;
 
 public class TestBase {
 
-
     public boolean isIssueOpen(int issueId) throws IOException {
         if ("Resolved".equals(getIssueStatus(issueId)) || ("Closed".equals(getIssueStatus(issueId)))) {
             return false;
         }
         return true;
     }
-
 
     public void skipIfNotFixed(int issueId) throws IOException {
         if (isIssueOpen(issueId)) {
@@ -37,7 +35,8 @@ public class TestBase {
                 .returnContent().asString();
         JsonElement parsed = JsonParser.parseString(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-        Set<Issue> issueParams = new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+        Set<Issue> issueParams = new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
+        }.getType());
         return issueParams.iterator().next().getStateName();
     }
 }
