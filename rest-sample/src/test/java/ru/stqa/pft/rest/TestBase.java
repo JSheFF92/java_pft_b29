@@ -1,32 +1,26 @@
 package ru.stqa.pft.rest;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.testng.SkipException;
 
 import java.io.IOException;
+import java.util.Set;
 
-public class TestBase  {
-
-
-   public boolean isIssueOpen(int issueId) throws IOException {
-       String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json"))
-               .returnContent().asString();
-       JsonElement parsed = new JsonParser().parse(json);
-       JsonElement Status = parsed.getAsJsonObject().getAsJsonArray("issues");
-
-       if ((Status.getAsJsonObject().get(String.valueOf(issueId))).equals("closed"))
+public class TestBase {
 
 
-       /*RestAssured.get(String.valueOf(issueId)).equals("Open"))*/{
+    public boolean isIssueOpen(int issueId) throws IOException {
+        if ("Resolved".equals(getIssueStatus(issueId)) || ("Closed".equals(getIssueStatus(issueId)))) {
             return false;
         }
-        else {
-            return true;
-        }
+        return true;
     }
+
 
     public void skipIfNotFixed(int issueId) throws IOException {
         if (isIssueOpen(issueId)) {
@@ -36,5 +30,14 @@ public class TestBase  {
 
     private Executor getExecutor() {
         return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
+    }
+
+    public String getIssueStatus(int issueId) throws IOException {
+        String json = getExecutor().execute(Request.Get(String.format("https://bugify.stqa.ru/api/issues/%s.json", issueId)))
+                .returnContent().asString();
+        JsonElement parsed = JsonParser.parseString(json);
+        JsonElement issues = parsed.getAsJsonObject().get("issues");
+        Set<Issue> issueParams = new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+        return issueParams.iterator().next().getStateName();
     }
 }

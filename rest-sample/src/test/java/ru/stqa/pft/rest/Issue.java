@@ -32,7 +32,7 @@ public class Issue {
     }
 
 
-    public String getState_name() {
+    public String getStateName() {
         return state_name;
     }
 
