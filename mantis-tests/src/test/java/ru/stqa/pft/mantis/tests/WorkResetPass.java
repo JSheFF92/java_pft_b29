@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class WorkRegistration extends TestBase {
+public class WorkResetPass extends TestBase {
 
 
     @BeforeMethod
