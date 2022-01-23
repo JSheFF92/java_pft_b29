@@ -33,7 +33,7 @@ public class TestBase {
     public String getIssueStatus(int issueId) throws IOException {
         String json = getExecutor().execute(Request.Get(String.format("https://bugify.stqa.ru/api/issues/%s.json", issueId)))
                 .returnContent().asString();
-        JsonElement parsed = JsonParser.parseString(json);
+        JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         Set<Issue> issueParams = new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
         }.getType());
