@@ -1,5 +1,7 @@
 package re.stqa.pft.addressbook.appmanager;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -50,9 +52,10 @@ public class ApplicationManager {
             } else if (browser.equals(BrowserType.IE)) {
                 wd = new InternetExplorerDriver();
             }
-        } else{
+        } else {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(browser);
+            //capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win10")));
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
         }
         wd.get(properties.getProperty("web.baseUrl"));
@@ -79,7 +82,11 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public DbHelper db(){
+    public DbHelper db() {
         return dbHelper;
+    }
+
+    public byte[] takeScreenshot(){
+        return ((TakesScreenshot)wd).getScreenshotAs(OutputType.BYTES);
     }
 }
